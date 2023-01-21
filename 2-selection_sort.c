@@ -15,17 +15,20 @@ void selection_sort(int *array, size_t size)
 	while (i < size - 1 && size >= 2)
 	{
 		small = &array[i];
-		for (j = i + 1; j < size; j++)
+		for (j = i; j < size; j++)
 		{
 			if (array[j] < *small)
 			{
 				small = &array[j];
 			}
 		}
-		tmp = *small;
-		*small = array[i];
-		array[i] = tmp;
-		print_array(array, size);
+		if (array[i] > *small)
+		{
+			tmp = *small;
+			*small = array[i];
+			array[i] = tmp;
+			print_array(array, size);
+		}
 		i++;
 	}
 }
