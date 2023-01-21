@@ -28,17 +28,20 @@ int partition(int *array, int low, int high, size_t size)
 	int pivot = array[high];
 	int i = low, j;
 
-	for (j = low; j < high; j++)
+	for (j = i + 1; j < high; j++)
 	{
-		if (array[j] <= pivot)
+		if (array[j] <= pivot && array[j] < array[i])
 		{
 			swap(&array[i], &array[j]);
 			print_array(array, size);
 			i++;
 		}
 	}
-	swap(&array[i], &array[high]);
-	print_array(array, size);
+	if (array[i] > array[high])
+	{
+		swap(&array[i], &array[high]);
+		print_array(array, size);
+	}
 
 	return (i);
 }
@@ -53,10 +56,11 @@ int partition(int *array, int low, int high, size_t size)
 
 void sort_help(int *array, int low, int high, size_t size)
 {
+	int pivot_index;
+
 	if (low < high)
 	{
-		int pivot_index = partition(array, low, high, size);
-
+		pivot_index = partition(array, low, high, size);
 		sort_help(array, low, pivot_index - 1, size);
 		sort_help(array, pivot_index + 1, high, size);
 	}
