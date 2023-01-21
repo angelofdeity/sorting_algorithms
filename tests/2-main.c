@@ -9,15 +9,12 @@
  */
 int main(void)
 {
-	int array[] = {13, 12, 4, 9, 20, 18, 5, 7, 17, 6, 16, 2, 14, 3, 15};
-
-	/* 	int array[] = {8, 7, 6, 1, 0, 9, 2};
-	 */
+	int array[] = {34, 46, 13, 43, 19, 18, 6, 49, 36, 31, 2, 16, 33, 30, 3, 41, 1, 42, 8, 9, 40, 21, 14, 23, 45};
 	size_t n = sizeof(array) / sizeof(array[0]);
 
 	print_array(array, n);
 	printf("\n");
-	quick_sort(array, n);
+	selection_sort(array, n);
 	printf("\n");
 	print_array(array, n);
 	return (0);

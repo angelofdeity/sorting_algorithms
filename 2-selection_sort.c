@@ -5,28 +5,26 @@
  * using the selection sort algorithm
  * @array: The array to sort
  * @size: Size of array
-*/
+ */
+
 void selection_sort(int *array, size_t size)
 {
 	size_t i = 0, j;
-	int temp, min_index;
+	int *small, tmp;
 
-	if (size < 2)
-		return;
-
-	while (i < size - 1)
+	while (i < size - 1 && size >= 2)
 	{
-		min_index = i;
-		j = i + 1;
-		while (j < size)
+		small = &array[i];
+		for (j = i + 1; j < size; j++)
 		{
-			if (array[j] < array[min_index])
-				min_index = j;
-			j++;
+			if (array[j] < *small)
+			{
+				small = &array[j];
+			}
 		}
-		temp = array[i];
-		array[i] = array[min_index];
-		array[min_index] = temp;
+		tmp = *small;
+		*small = array[i];
+		array[i] = tmp;
 		print_array(array, size);
 		i++;
 	}
