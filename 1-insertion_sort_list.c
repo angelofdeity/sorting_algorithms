@@ -1,4 +1,8 @@
 #include "sort.h"
+/**
+ * insertion_sort_list - sorts a list using insertion sort algo
+ * @list: doubly linked list to be sorted
+ */
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *current, *temp;
