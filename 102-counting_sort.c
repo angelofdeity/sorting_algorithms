@@ -123,4 +123,6 @@ void counting_sort(int *array, size_t size)
 		array[i] = counting[i];
 		i++;
 	}
+	free(counting);
+	free(occurrence);
 }
