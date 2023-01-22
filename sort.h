@@ -21,7 +21,7 @@ typedef struct arr_s
 {
 	int *array;
 	int size;
-} arr_t
+} arr_t;
 
 void insertion_sort_list(listint_t **list);
 void bubble_sort(int *array, size_t size);

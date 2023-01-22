@@ -1,16 +1,27 @@
 #include "sort.h"
 
 /**
- * unique_size - Gets the number of unique items in an array;
+ * unique_items - Isolates the unique items in an array
  * @array: Input array
  * @size: Size of array
  * 
- * Return: The number of unique elements of the array
+ * Return: A new array containing the uniq elements of the array
 */
-int unique_size(int *array, size_t size)
+arr_t *unique_items(int *array, size_t size)
 {
-    int i, c, j, uniq, unique_size = 0;
-    int uniq_it[size];
+    int i, c, j, uniq_size = 0, uniq;
+    int *uniq_it = malloc(sizeof(int) * size);
+    arr_t *unique;
+
+    if (uniq_it == NULL)
+		return NULL;
+
+	unique = malloc(sizeof(arr_t));
+	if (unique == NULL)
+	{
+		free(uniq_it);
+		return (NULL);
+	}
 
     for (i = 0; i < size; i++)
     {
@@ -28,11 +39,15 @@ int unique_size(int *array, size_t size)
         }
         if (uniq)
         {
-            uniq_it[unique_size] = c;
-            unique_size++;
+            uniq_it[uniq_size] = c;
+            uniq_size++;
         }
     }
-    return (unique_size);
+
+	unique->array = uniq_it;
+	unique->size = uniq_size;
+
+    return (unique);
 }
 
 /**
@@ -46,14 +61,15 @@ void counting_sort(int *array, size_t size)
     int i, c, j, u = 0, counter, uniq, min = array[0], max = 0;
     int *counting;
     int uniq_size;
+	arr_t *unique_elem;
 
 	if (size < 2)
 		return;
-    uniq_size = unique_size(array, size);
 
-	counting = malloc(sizeof(int) * uniq_size);
-	if (counting == NULL)
-		return;
-
+	unique_elem = unique_items(array, size);
+	uniq_size = unique_elem->size;
+	counting = unique_elem->array;
 	printf("uniq: %d\n", uniq_size);
+	printf("arr size: %lu\n", size);
+	print_array(counting, uniq_size);
 }
