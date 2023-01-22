@@ -1,10 +1,10 @@
 #include "sort.h"
 
 /**
- * max - Gets the maximum value of an array
+ * maxim - Gets the maximum value of an array
  * @array: Input array
  * @size: Size of array
- * 
+ *
  * Return: The max value of array
 */
 int maxim(int *array, size_t size)
@@ -18,50 +18,15 @@ int maxim(int *array, size_t size)
 			max = array[i];
 		i++;
 	}
-	return max;
+	return (max);
 }
-
 
 /**
- * set_range - Sets array range from 0 to max
- * @max: Maximum range
- * 
- * Return: A node of range array from 0 to max
- * and occurrences initialized to 0
+ * occurrence_set - Sets the number of occurrences by index
+ * @array: Input array
+ * @size: Size of array
+ * @occurrence: Array to set
 */
-/*
-array_range_t *set_range(int max)
-{
-	array_range_t *range = malloc(sizeof(array_range_t));
-	int i = 0;
-
-	if (range == NULL)
-		return NULL;
-
-	range->range = malloc(sizeof(int) * max);
-	if (range->range == NULL)
-	{
-		free(range);
-		return (NULL);
-	}
-	range->occurrence = malloc(sizeof(int) * max);
-	if (range->occurrence == NULL)
-	{
-		free(range->range);
-		free(range);
-		return (NULL);
-	}
-
-	while (i <= max)
-	{
-		range->range[i] = 1;
-		range->occurrence[i] = 0;
-		i++;
-	}
-	return (range);
-}
-*/
-
 void occurrence_set(int *array, size_t size, int *occurrence)
 {
 	size_t i = 0, j;
@@ -83,6 +48,48 @@ void occurrence_set(int *array, size_t size, int *occurrence)
 }
 
 /**
+ * sum_occurrence - Sums up index array values with predecessor values
+ * @occurrence: Array to sum
+ * @max: Size of array
+*/
+void sum_occurrence(int *occurrence, int max)
+{
+	int i = 0, j = 1;
+
+	while (i <= max && j <= max)
+	{
+		occurrence[j] = occurrence[j] + occurrence[i];
+		i++;
+		j++;
+	}
+}
+
+/**
+ * sort_count - Sorts an array of integer
+ * @array: Array to sort
+ * @size: size of array
+ * @occurrence: Array of occurrences
+ *
+ * Return: A new array containing the sorted value of array
+*/
+int *sort_count(int *array, size_t size, int *occurrence)
+{
+	size_t i = 0;
+	int *sort = malloc(sizeof(int) * size);
+
+	if (sort == NULL)
+		return (NULL);
+
+	while (i < size)
+	{
+		sort[occurrence[array[i]] - 1] = array[i];
+		occurrence[array[i]]--;
+		i++;
+	}
+	return (sort);
+}
+
+/**
  * counting_sort - Sorts an array of integers in ascending order
  * using the counting sort algorithm
  * @array: The array to sort
@@ -90,18 +97,30 @@ void occurrence_set(int *array, size_t size, int *occurrence)
 */
 void counting_sort(int *array, size_t size)
 {
-    int max;
-	int *occurrence;
+	int max;
+	int *occurrence, *counting;
+	size_t i = 0;
 
 	if (size < 2)
 		return;
-	
+
 	max = maxim(array, size);
 	occurrence = malloc(sizeof(int) * (max + 1));
 	if (occurrence == NULL)
 		return;
 
 	occurrence_set(array, size, occurrence);
-	printf("Max %d\n", max);
+	sum_occurrence(occurrence, max + 1);
 	print_array(occurrence, max + 1);
+	counting = sort_count(array, size, occurrence);
+	if (counting == NULL)
+	{
+		free(occurrence);
+		return;
+	}
+	while (i < size)
+	{
+		array[i] = counting[i];
+		i++;
+	}
 }

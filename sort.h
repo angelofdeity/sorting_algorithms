@@ -36,5 +36,8 @@ void selection_sort(int *array, size_t size);
 void shell_sort(int *array, size_t size);
 void counting_sort(int *array, size_t size);
 int maxim(int *array, size_t size);
+int *sort_count(int *array, size_t size, int *occurrence);
+void sum_occurrence(int *occurrence, int max);
+void occurrence_set(int *array, size_t size, int *occurrence);
 
 #endif
