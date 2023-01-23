@@ -22,14 +22,8 @@ void split(int *array, size_t size, int *new)
 
 	for (i = middle; i < size; i++)
 		new[i] = array[i];
-	printf("Merging...\n");
 
 	merge(array, new, size);
-	printf("[left]:");
-	print_array(new, middle);
-	printf("[right]:");
-	print_array(new + middle, size - middle);
-	printf("[Done]\n");
 
 	split(new, middle, new);
 	split(new, size - middle, new);
@@ -41,7 +35,7 @@ void merge(int *array, int *new, size_t size)
 
 	for (i = 0, j = middle, k = 0; i < middle && j < size; k++)
 	{
-		if (new[i] < new[j])
+		if (new[i] <= new[j])
 		{
 			array[k] = new[i];
 			i++;
@@ -52,6 +46,22 @@ void merge(int *array, int *new, size_t size)
 			j++;
 		}
 	}
+
+	while (i < middle)
+	{
+		array[k] = new[i];
+		i++;
+		k++;
+	}
+
+	while (j < size)
+	{
+		array[k] = new[j];
+		j++;
+		k++;
+	}
+
+
 }
 
 /**
@@ -70,7 +80,6 @@ void merge_sort(int *array, size_t size)
 	new = malloc(sizeof(int) * size);
 
 	split(array, size, new);
-
 	/*merge(array, left_half, right_half, size);*/
 	free(new);
 }
