@@ -16,14 +16,17 @@ void split(int *array, size_t size, int *new)
 	if (size < 2)
 		return;
 
-	printf("Merging...\n");
+
 	for (i = 0; i < middle; i++)
 		new[i] = array[i];
-	printf("[left]:");
-	print_array(new, middle);
 
 	for (i = middle; i < size; i++)
 		new[i] = array[i];
+	printf("Merging...\n");
+
+	merge(array, new, size);
+	printf("[left]:");
+	print_array(new, middle);
 	printf("[right]:");
 	print_array(new + middle, size - middle);
 	printf("[Done]\n");
@@ -34,12 +37,20 @@ void split(int *array, size_t size, int *new)
 
 void merge(int *array, int *new, size_t size)
 {
-	int i, j, middle = size / 2, k;
+	size_t i, j, middle = size / 2, k;
 
-	for (i = 0, j = middle, k = 0; i < middle && j < size; i++, j++)
+	for (i = 0, j = middle, k = 0; i < middle && j < size; k++)
 	{
 		if (new[i] < new[j])
-			array[k] = 
+		{
+			array[k] = new[i];
+			i++;
+		}	
+		else
+		{
+			array[k] = new[j];
+			j++;
+		}
 	}
 }
 
