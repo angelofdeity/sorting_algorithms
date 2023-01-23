@@ -8,10 +8,12 @@
  * @right_half: Right half of the array
  * @size: Size of the array
 */
+/**
 void merge(int *array, int *left_half, int *right_half, size_t size)
 {
-
+	;
 }
+*/
 
 /**
  * merge_sort - Sorts an array of integers in ascending order
@@ -22,10 +24,17 @@ void merge(int *array, int *left_half, int *right_half, size_t size)
 void merge_sort(int *array, size_t size)
 {
 	size_t middle = size / 2, i, j;
-	int left_half[middle], right_half[size - middle];
+	int *left_half, *right_half;
+
+	left_half = malloc(sizeof(int) * middle);
+	right_half = malloc(sizeof(int) * size - middle);
 
 	if (size < 2)
+	{
+		free(left_half);
+		free(right_half);
 		return;
+	}
 
 	printf("Merging...\n");
 	for (i = 0; i < middle; i++)
@@ -42,5 +51,5 @@ void merge_sort(int *array, size_t size)
 	merge_sort(left_half, (size_t)middle);
 	merge_sort(right_half, size - middle);
 
-	merge(array, left_half, right_half, size);
+	/*merge(array, left_half, right_half, size);*/
 }
