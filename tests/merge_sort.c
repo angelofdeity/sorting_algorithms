@@ -1,53 +1,47 @@
 #include "sort.h"
-
-/**
- * merge - Sorts an array of integers, by merging
- * the left half and the right half
- * @array: Input array
- * @left_half: Left half of the array
- * @right_half: Right half of the array
- * @size: Size of the array
- */
-/**
-void merge(int *array, int *left_half, int *right_half, size_t size)
+void merge(int *array, int *temp, int left, int mid, int right)
 {
-	;
-}
-*/
+	int i = left, j = mid, k = left;
+	while (i < mid && j <= right)
+	{
+		if (array[i] < array[j])
+			temp[k++] = array[i++];
+		else
+			temp[k++] = array[j++];
+	}
+	while (i < mid)
+		temp[k++] = array[i++];
+	while (j <= right)
+		temp[k++] = array[j++];
 
-/**
- * merge_sort - Sorts an array of integers in ascending order
- * using merge sort
- * @array: Array to sort
- * @size: Size of the array
- */
+	for (int i = left; i <= right; i++)
+		array[i] = temp[i];
+}
+
+void merge_sort_with_print(int *array, int *temp, int left, int right)
+{
+	if (left < right)
+	{
+		int mid = left + (right - left + 1) / 2;
+		merge_sort_with_print(array, temp, left, mid - 1);
+		merge_sort_with_print(array, temp, mid, right);
+		printf("Merging...\n[left]: ");
+		for (int i = left; i < mid; i++)
+			printf("%d ", array[i]);
+		printf("\n[right]: ");
+		for (int i = mid; i <= right; i++)
+			printf("%d ", array[i]);
+		merge(array, temp, left, mid, right);
+		printf("\n[Done]: ");
+		for (int i = left; i <= right; i++)
+			printf("%d ", array[i]);
+		printf("\n");
+	}
+}
+
 void merge_sort(int *array, size_t size)
 {
-	size_t middle = size / 2, i, j;
-	int *new;
-
-	new = malloc(sizeof(int) * size);
-
-	if (size < 2)
-	{
-		free(new);
-		return;
-	}
-
-	printf("Merging...\n");
-	for (i = 0; i < middle; i++)
-		new[i] = array[i];
-	printf("[left]:");
-	print_array(new, middle);
-
-	for (i = middle; i < size; i++)
-		new[i] = array[i];
-	printf("[right]:");
-	print_array(new + middle, size - middle);
-	printf("[Done]\n");
-
-	merge_sort(new, middle);
-	merge_sort(new, size - middle);
-
-	/*merge(array, left_half, right_half, size);*/
+	int *temp = malloc(size * sizeof(int));
+	merge_sort_with_print(array, temp, 0, size - 1);
+	free(temp);
 }

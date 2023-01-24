@@ -21,7 +21,7 @@ typedef struct listint_s
  * struct array_range_s - Counting node
  * @range: An array containing the range of input
  * @occurrence: Number of range occurrence
-*/
+ */
 typedef struct array_range_s
 {
 	int *range;
@@ -40,6 +40,8 @@ int *sort_count(int *array, size_t size, int *occurrence);
 void sum_occurrence(int *occurrence, int max);
 void occurrence_set(int *array, size_t size, int *occurrence);
 void merge_sort(int *array, size_t size);
-void merge(int *array, int *left_half, int *right_half, size_t size);
+void merge(int *array, int *temp, int left, int middle, int right);
+void split(int *array, int *temp, int left, int right);
+void merge_sort(int *array, size_t size);
 
 #endif
