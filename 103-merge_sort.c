@@ -26,7 +26,7 @@ void merge(int *array, int *temp, int left, int mid, int right)
 	while (j <= right)
 		temp[k++] = array[j++];
 
-	for (int i = left; i <= right; i++)
+	for (i = left; i <= right; i++)
 		array[i] = temp[i];
 }
 
