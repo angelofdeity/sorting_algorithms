@@ -41,24 +41,20 @@ void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
 
 void merge_sort_with_print(int *array, int *temp, size_t left, size_t right)
 {
-	size_t mid, i;
+	size_t mid;
 
-	if (left < right)
+	if (right - left >= 1)
 	{
 		mid = left + (right - left + 1) / 2;
 		merge_sort_with_print(array, temp, left, mid - 1);
 		merge_sort_with_print(array, temp, mid, right);
 		printf("Merging...\n[left]: ");
-		for (i = left; i < mid; i++)
-			printf("%d ", array[i]);
-		printf("\n[right]: ");
-		for (i = mid; i <= right; i++)
-			printf("%d ", array[i]);
+		print_array(array + left, mid - left);
+		printf("[right]: ");
+		print_array(array + mid, right - mid + 1);
 		merge(array, temp, left, mid, right);
-		printf("\n[Done]: ");
-		for (i = left; i <= right; i++)
-			printf("%d ", array[i]);
-		printf("\n");
+		printf("[Done]: ");
+		print_array(array + left, right - left + 1);
 	}
 }
 
