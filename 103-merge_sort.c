@@ -9,33 +9,33 @@
  * @size: Size of the array
  */
 
-void split(int *array, size_t size, int *new)
+void split(int *array, size_t start, size_t size, int *new)
 {
-	size_t i, middle = size / 2;
+	size_t i, middle;
 
-	if (size < 2)
+	if (size - start < 2)
 		return;
 
+	middle = start + (size - start) / 2;
 
-	for (i = 0; i < middle; i++)
+	for (i = start; i <= middle; i++)
 		new[i] = array[i];
 
 	for (i = middle; i < size; i++)
 		new[i] = array[i];
 
-	merge(array, new, size);
-
-	split(new, middle, new);
-	split(new, size - middle, new);
+	split(array, start, middle, new);
+	split(array, middle, size, new);
+	merge(array, new, start, middle, size);
 }
 
-void merge(int *array, int *new, size_t size)
+void merge(int *array, int *new, size_t start, size_t middle, size_t size)
 {
-	size_t i, j, middle = size / 2, k;
+	size_t i, j, k;
 
-	for (i = 0, j = middle, k = 0; i < middle && j < size; k++)
+	for (i = start, j = middle, k = 0; i < middle && j < size; k++)
 	{
-		if (new[i] <= new[j])
+		if (new[i] < new[j])
 		{
 			array[k] = new[i];
 			i++;
@@ -60,8 +60,6 @@ void merge(int *array, int *new, size_t size)
 		j++;
 		k++;
 	}
-
-
 }
 
 /**
@@ -73,13 +71,14 @@ void merge(int *array, int *new, size_t size)
 void merge_sort(int *array, size_t size)
 {
 	int *new;
+	size_t start = 0;
 
 	if (size < 2)
 		return;
 
 	new = malloc(sizeof(int) * size);
 
-	split(array, size, new);
+	split(array, start, size, new);
 	/*merge(array, left_half, right_half, size);*/
 	free(new);
 }
