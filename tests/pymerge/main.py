@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 from merge import merge_sort
-array = [8, 7, 6, 1, 0, 9, 2, 13]
-print(array)
+array = [19, 48, 99, 71, 13, 52, 96, 73, 86, 7]
+print(*array, sep=", ")
+print()
 merge_sort(array)
-print(array)
+print()
+print(*array, sep=", ")

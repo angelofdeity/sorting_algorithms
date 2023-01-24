@@ -5,8 +5,10 @@ def merge_sort(array):
         right = array[middle:]
         merge_sort(left)
         merge_sort(right)
-        print(f"Merging...\n[left]: ", left)
-        print("[right]: ", right)
+        print("Merging...\n[left]: ", end='')
+        print(*left, sep=", ")
+        print("[right]: ", end='')
+        print(*right, sep=", ")
         i = j = k = 0
         while i < len(left) and j < len(right):
             if left[i] < right[j]:
@@ -26,4 +28,5 @@ def merge_sort(array):
             array[k] = right[j]
             j += 1
             k += 1
-        print("[Done]: ", array)
+        print("[Done]: ", end='')
+        print(*array, sep=', ')
