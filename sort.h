@@ -43,7 +43,7 @@ int *sort_count(int *array, size_t size, int *occurrence);
 void sum_occurrence(int *occurrence, int max);
 void occurrence_set(int *array, size_t size, int *occurrence);
 void merge_sort(int *array, size_t size);
-void merge(int *array, int *temp, int left, int mid, int right);
-void merge_sort_with_print(int *array, int *temp, int left, int right);
+void merge(int *array, int *temp, size_t left, size_t mid, size_t right);
+void merge_sort_with_print(int *array, int *temp, size_t left, size_t right);
 
 #endif

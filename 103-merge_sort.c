@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * merge - Sorts an array of integers, by merging
+ * merge - Sorts an array of size_tegers, by merging
  * the left half and the right half
  * @array: Input array
  * @temp: temporary array buffer
@@ -10,9 +10,9 @@
  * @right: end index of the array
  */
 
-void merge(int *array, int *temp, int left, int mid, int right)
+void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
 {
-	int i = left, j = mid, k = left;
+	size_t i = left, j = mid, k = left;
 
 	while (i < mid && j <= right)
 	{
@@ -31,7 +31,7 @@ void merge(int *array, int *temp, int left, int mid, int right)
 }
 
 /**
- * merge_sort_with_print - Sorts an array of integers,
+ * merge_sort_with_print - Sorts an array of size_tegers,
  * by merging the left half and the right half
  * @array: Input array
  * @temp: temporary array buffer
@@ -39,9 +39,9 @@ void merge(int *array, int *temp, int left, int mid, int right)
  * @right: end index of the array
  */
 
-void merge_sort_with_print(int *array, int *temp, int left, int right)
+void merge_sort_with_print(int *array, int *temp, size_t left, size_t right)
 {
-	int mid, i;
+	size_t mid, i;
 
 	if (left < right)
 	{
@@ -66,11 +66,17 @@ void merge_sort_with_print(int *array, int *temp, int left, int right)
  * merge_sort - driver merge sort function
  * @array: array to be sorted
  * @size: size of array
+ * Description: implements the top-down merge sort algorithm
  */
 void merge_sort(int *array, size_t size)
 {
-	int *temp = malloc(size * sizeof(int));
+	int *temp;
 
+	if (array == NULL || size < 2)
+		return;
+	temp = malloc(size * sizeof(int));
+	if (temp == NULL)
+		return;
 	merge_sort_with_print(array, temp, 0, size - 1);
 	free(temp);
 }
